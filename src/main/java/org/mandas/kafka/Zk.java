@@ -92,9 +92,10 @@ class Zk {
 		ZkClient client = new ZkClient(connection, sessionTimeout, connectionTimeout, serializer);
 		ZkUtils utils = new ZkUtils(client, new ZkConnection(connection), false);
 		AdminUtils.createTopic(utils, topic, partitions, replicas, properties, RackAwareMode.Enforced$.MODULE$);
+		client.close();
 	}
 	
 	void stop() {
-		server.shutdown();
+		server.getServerCnxnFactory().shutdown();
 	}
 }
