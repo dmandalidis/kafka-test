@@ -20,6 +20,7 @@ kafka-cluster-unit comes with support for Apache Kafka 0.10.1.1 and Apache ZooKe
 	<groupId>org.mandas.kafka</groupId>
 	<artifactId>kafka-cluster-unit</artifactId>
 	<version>LATEST-VERSION</version>
+	<scope>test</scope>
 </dependency>
 ```
 
