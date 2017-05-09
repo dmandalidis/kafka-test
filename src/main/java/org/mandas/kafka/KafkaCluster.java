@@ -46,7 +46,7 @@ import org.apache.kafka.common.serialization.Serializer;
  * 
  *<pre>
  *{@code KafkaCluster cluster = KafkaCluster.builder()
- *	.withZookeeper("127.0.0.1", 2181, 5)
+ *	.withZookeeper("127.0.0.1", 2181)
  *	.withBroker(1, "127.0.0.1", 9092)
  *	.withBroker(2, "127.0.0.1", 19092)
  *	.build();
@@ -98,7 +98,9 @@ public class KafkaCluster {
 	}
 	
 	/**
-	 * Get a new {@link Consumer} for this cluster
+	 * Get a new {@link Consumer} for this cluster. 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * 
 	 * @param properties additional consumer properties
 	 * @return a new {@link Consumer} for this cluster
 	 * @param <K> the key type
@@ -114,6 +116,9 @@ public class KafkaCluster {
 	
 	/**
 	 * Get a new {@link Consumer} for this cluster
+	 * 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * 
 	 * @param properties additional consumer properties
 	 * @param keyDeserializer the key deserializer
 	 * @param valueDeserializer the value deserializer
@@ -131,6 +136,9 @@ public class KafkaCluster {
 	
 	/**
 	 * Get a new {@link Producer} for this cluster
+	 * 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * 
 	 * @param properties additional producer properties
 	 * @return a new {@link Producer} for this cluster
 	 * @param <K> the key type
@@ -146,6 +154,9 @@ public class KafkaCluster {
 	
 	/**
 	 * Get a new {@link Producer} for this cluster
+	 * 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * 
 	 * @param properties additional producer properties
 	 * @param keySerializer the key serializer
 	 * @param valueSerializer the value serializer
@@ -193,12 +204,22 @@ public class KafkaCluster {
 	}
 	
 	/**
+	 * Create a topic
+	 * @param topic the topic name
+	 * @param replicas the replication factor
+	 * @param partitions the number of partitions
+	 */
+	public void createTopic(String topic, int partitions, int replicas) {
+		this.zk.createTopic(topic, partitions, replicas);
+	}
+	
+	/**
 	 * Create a topic (replication factor defaults to the number of available brokers
 	 * @param topic the topic name
 	 * @param partitions the number of partitions
 	 */
 	public void createTopic(String topic, int partitions) {
-		this.zk.createTopic(topic, partitions, brokers.size());
+		createTopic(topic, partitions, brokers.size());
 	}
 	
 	private KafkaCluster(Zk zk, Map<Integer, KafkaBroker> brokers, Path baseLogPath) {
@@ -222,6 +243,16 @@ public class KafkaCluster {
 
 		KafkaClusterBuilder(Path base) {
 			this.base = base;
+		}
+		
+		/**
+		 * Modifies this builder, attaching Zookeeper server coordinates
+		 * @param host the hostname that Zookeeper will listen on
+		 * @param port the port that Zookeeper will bind on
+		 * @return this
+		 */
+		public KafkaClusterBuilder withZookeeper(String host, int port) {
+			return withZookeeper(host, port, 10);
 		}
 		
 		/**

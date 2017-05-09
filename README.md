@@ -27,7 +27,7 @@ kafka-cluster-unit comes with support for Apache Kafka 0.10.1.1 and Apache ZooKe
 ## Create a cluster
 ```java
 KafkaCluster cluster = KafkaCluster.builder()
-				.withZookeeper("127.0.0.1", 2181, 5)
+				.withZookeeper("127.0.0.1", 2181)
 				.withBroker(1, "127.0.0.1", 9092)
 				.withBroker(2, "127.0.0.1", 19092)
 				.build();
