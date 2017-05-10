@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -34,11 +35,13 @@ import java.util.stream.Collectors;
 
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
  * {@code KafkaCluster} represents a Kafka cluster with one or more brokers
@@ -201,16 +204,44 @@ public class KafkaCluster {
 		for (KafkaBroker broker: brokers.values()) {
 			broker.start();
 		}
+		
+		initialize();
 	}
 	
 	/**
-	 * Create a topic
+	 * On first consumer poll, _consumer_offsets topic is created which, although fast,
+	 * may lead consumers with small polling interval to fail fetching any message.
+	 * 
+	 * This method polls from __consumer_offsets in order to trigger topic creation. 
+	 * It may add some overhead in the startup cycle, but once done, cluster internal 
+	 * structures are then adding the real-life overhead instead.
+	 */
+	private void initialize() {
+		StringDeserializer deserializer = new StringDeserializer();
+		Properties properties = new Properties();
+		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group");
+		Consumer<String, String> consumer = consumer(properties, deserializer, deserializer);
+		consumer.subscribe(Arrays.asList("__consumer_offsets"));
+		consumer.poll(0);
+		consumer.close();
+	}
+	
+	/**
+	 * Creates a topic
 	 * @param topic the topic name
 	 * @param replicas the replication factor
 	 * @param partitions the number of partitions
 	 */
 	public void createTopic(String topic, int partitions, int replicas) {
 		this.zk.createTopic(topic, partitions, replicas);
+	}
+	
+	/**
+	 * Deletes a topic
+	 * @param topic the topic name
+	 */
+	void deleteTopic(String topic) {
+		this.zk.deleteTopic(topic);
 	}
 	
 	/**
@@ -282,7 +313,7 @@ public class KafkaCluster {
 				throw new IllegalStateException("A Kafka broker needs a Zookeeper connection");
 			}
 			Path logDir = base.resolve("kafka").resolve(String.valueOf(id)).resolve("log");
-			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnection(), host, port);
+			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, port);
 			brokers.put(id, broker);
 			return this;
 		}
