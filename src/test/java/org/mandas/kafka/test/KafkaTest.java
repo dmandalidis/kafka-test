@@ -62,7 +62,7 @@ public class KafkaTest {
 		
 		consumer.subscribe(Arrays.asList("topic"));
 		
-		ConsumerRecords<String,String> records = consumer.poll(5000L);
+		ConsumerRecords<String,String> records = consumer.poll(200L);
 		assertEquals(1, records.count());
 		
 		cluster.shutdown();

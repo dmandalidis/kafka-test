@@ -67,7 +67,7 @@ class Zk {
 		this.server = new ZooKeeperServer();
 	}
 	
-	String getConnection() {
+	String getConnectionString() {
 		return String.format("%s:%d", host, port);
 	}
 	
@@ -84,15 +84,25 @@ class Zk {
 	}
 	
 	void createTopic(String topic, int partitions, int replicas) {
-		createTopic(topic, partitions, replicas, new Properties(), 5000, 5000);
+		createTopic(topic, partitions, replicas, new Properties());
 	}
 	
-	void createTopic(String topic, int partitions, int replicas, Properties properties, int sessionTimeout, int connectionTimeout) {
-		String connection = getConnection();
-		ZkClient client = new ZkClient(connection, sessionTimeout, connectionTimeout, serializer);
-		ZkUtils utils = new ZkUtils(client, new ZkConnection(connection), false);
+	void createTopic(String topic, int partitions, int replicas, Properties properties) {
+		ZkUtils utils = utils();
 		AdminUtils.createTopic(utils, topic, partitions, replicas, properties, RackAwareMode.Enforced$.MODULE$);
-		client.close();
+		utils.close();
+	}
+	
+	ZkUtils utils() {
+		String connection = getConnectionString();
+		ZkClient client = new ZkClient(connection, 5000, 5000, serializer);
+		return new ZkUtils(client, new ZkConnection(connection), false);
+	}
+	
+	void deleteTopic(String topic) {
+		ZkUtils utils = utils();
+		AdminUtils.deleteTopic(utils, topic);
+		utils.close();
 	}
 	
 	void stop() {
