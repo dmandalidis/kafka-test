@@ -39,6 +39,7 @@ class KafkaBroker {
 		props.put("log.dir", logDir.toString());
 		props.put("broker.id", brokerId);
 		props.put("offsets.topic.num.partitions", "1");
+		props.put("auto.create.topics.enable", false);
 		KafkaConfig config = new KafkaConfig(props);
 		kafka = new KafkaServerStartable(config);
 	}
