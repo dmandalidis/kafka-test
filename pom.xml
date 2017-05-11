@@ -57,6 +57,7 @@
 		<version.kafka>0.10.1.1</version.kafka>
 		<version.junit>4.12</version.junit>
 		<version.zookeeper>3.4.6</version.zookeeper>
+		<version.slf4j>1.6.1</version.slf4j>
 	</properties>
 
 	<dependencies>
@@ -70,11 +71,33 @@
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
 			<version>${version.zookeeper}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka_2.11</artifactId>
 			<version>${version.kafka}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+  			<artifactId>slf4j-simple</artifactId>
+  			<version>${version.slf4j}</version>
+  			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
