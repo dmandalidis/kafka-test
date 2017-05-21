@@ -114,7 +114,7 @@ public class KafkaCluster {
 		prop.putAll(defaultProperties());
 		prop.putAll(properties);
 		
-		return new KafkaConsumer<K, V>(prop);
+		return new KafkaConsumer<>(prop);
 	}
 	
 	/**
@@ -220,10 +220,10 @@ public class KafkaCluster {
 		StringDeserializer deserializer = new StringDeserializer();
 		Properties properties = new Properties();
 		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group");
-		Consumer<String, String> consumer = consumer(properties, deserializer, deserializer);
-		consumer.subscribe(Arrays.asList("__consumer_offsets"));
-		consumer.poll(0);
-		consumer.close();
+		try (Consumer<String, String> consumer = consumer(properties, deserializer, deserializer)) {
+			consumer.subscribe(Arrays.asList("__consumer_offsets"));
+			consumer.poll(0);
+		}
 	}
 	
 	/**

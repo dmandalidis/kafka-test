@@ -52,7 +52,7 @@ public class KafkaTest {
 
 		StringDeserializer deserializer = new StringDeserializer();
 		
-		ProducerRecord<String, String> record = new ProducerRecord<String, String>("topic", "key", "foobar");
+		ProducerRecord<String, String> record = new ProducerRecord<>("topic", "key", "foobar");
 		producer.send(record);
 		
 		Properties p = new Properties();
