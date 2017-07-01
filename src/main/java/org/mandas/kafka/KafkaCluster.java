@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -34,6 +35,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -42,6 +46,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+
 
 /**
  * {@code KafkaCluster} represents a Kafka cluster with one or more brokers
@@ -138,6 +143,31 @@ public class KafkaCluster {
 	}
 	
 	/**
+	 * Get a new {@link AdminClient} for this cluster
+	 * 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * @param properties additional admin client properties
+	 * @return a new {@link AdminClient} for this cluster
+	 */
+	public AdminClient adminClient(Properties properties) {
+		Properties prop = new Properties();
+		prop.putAll(defaultProperties());
+		prop.putAll(properties);
+		
+		return AdminClient.create(prop);
+	}
+	
+	/**
+	 * Get a new {@link AdminClient} for this cluster with the default properties
+	 * 
+	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
+	 * @return a new {@link AdminClient} for this cluster
+	 */
+	public AdminClient adminClient() {
+		return AdminClient.create(defaultProperties());
+	}
+	
+	/**
 	 * Get a new {@link Producer} for this cluster
 	 * 
 	 * <p>{@link CommonClientConfigs#BOOTSTRAP_SERVERS_CONFIG} is handled internally</p>
@@ -201,8 +231,9 @@ public class KafkaCluster {
 			throw new RuntimeException(e);
 		}
 		
-		for (KafkaBroker broker: brokers.values()) {
-			broker.start();
+		Collection<KafkaBroker> values = brokers.values();
+		for (KafkaBroker broker: values) {
+			broker.start(brokers.values().size());
 		}
 		
 		initialize();
@@ -228,26 +259,42 @@ public class KafkaCluster {
 	
 	/**
 	 * Creates a topic
+	 * 
+	 * <p>This method blocks until topic creation is finished or failed</p>
+	 *  
 	 * @param topic the topic name
 	 * @param replicas the replication factor
 	 * @param partitions the number of partitions
+	 * @throws RuntimeException when the requested topic could not be created
 	 */
 	public void createTopic(String topic, int partitions, int replicas) {
-		this.zk.createTopic(topic, partitions, replicas);
+		try (AdminClient client = adminClient()) {
+			client.createTopics(Arrays.asList(new NewTopic(topic, partitions, (short) replicas))).all().get();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	/**
 	 * Deletes a topic
+	 * 
+	 * <p>This method blocks until topic deletion is finished or failed</p>
 	 * @param topic the topic name
+	 * @throws RuntimeException when the requested topic could not be deleted
 	 */
 	void deleteTopic(String topic) {
-		this.zk.deleteTopic(topic);
+		try (AdminClient client = adminClient()) {
+			client.deleteTopics(Arrays.asList(topic)).all().get();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	/**
 	 * Create a topic (replication factor defaults to the number of available brokers
 	 * @param topic the topic name
 	 * @param partitions the number of partitions
+	 * @throws RuntimeException when the requested topic could not be created
 	 */
 	public void createTopic(String topic, int partitions) {
 		createTopic(topic, partitions, brokers.size());

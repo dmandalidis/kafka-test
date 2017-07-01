@@ -20,21 +20,11 @@ package org.mandas.kafka;
 
 import java.net.InetSocketAddress;
 import java.nio.file.Path;
-import java.util.Properties;
 
-import org.I0Itec.zkclient.ZkClient;
-import org.I0Itec.zkclient.ZkConnection;
-import org.I0Itec.zkclient.exception.ZkMarshallingError;
-import org.I0Itec.zkclient.serialize.ZkSerializer;
 import org.apache.zookeeper.server.ServerCnxnFactory;
 import org.apache.zookeeper.server.ZKDatabase;
 import org.apache.zookeeper.server.ZooKeeperServer;
 import org.apache.zookeeper.server.persistence.FileTxnSnapLog;
-
-import kafka.admin.AdminUtils;
-import kafka.admin.RackAwareMode;
-import kafka.utils.ZKStringSerializer;
-import kafka.utils.ZkUtils;
 
 class Zk {
 	
@@ -44,19 +34,6 @@ class Zk {
 	private final int port;
 	private final int maxClientCnxns;
 	private final ZooKeeperServer server;
-	
-	private final ZkSerializer serializer = new ZkSerializer() {
-		
-		@Override
-		public byte[] serialize(Object data) throws ZkMarshallingError {
-			return ZKStringSerializer.serialize(data);
-		}
-		
-		@Override
-		public Object deserialize(byte[] bytes) throws ZkMarshallingError {
-			return ZKStringSerializer.deserialize(bytes);
-		}
-	};
 	
 	Zk(Path dataDir, Path snapDir, String host, int port, int maxClientCnxns) {
 		this.dataDir = dataDir;
@@ -81,28 +58,6 @@ class Zk {
 		ZKDatabase zkDb = new ZKDatabase(snapLog);
 		server.setZKDatabase(zkDb);
 		factory.startup(server);
-	}
-	
-	void createTopic(String topic, int partitions, int replicas) {
-		createTopic(topic, partitions, replicas, new Properties());
-	}
-	
-	void createTopic(String topic, int partitions, int replicas, Properties properties) {
-		ZkUtils utils = utils();
-		AdminUtils.createTopic(utils, topic, partitions, replicas, properties, RackAwareMode.Enforced$.MODULE$);
-		utils.close();
-	}
-	
-	ZkUtils utils() {
-		String connection = getConnectionString();
-		ZkClient client = new ZkClient(connection, 5000, 5000, serializer);
-		return new ZkUtils(client, new ZkConnection(connection), false);
-	}
-	
-	void deleteTopic(String topic) {
-		ZkUtils utils = utils();
-		AdminUtils.deleteTopic(utils, topic);
-		utils.close();
 	}
 	
 	void stop() {
