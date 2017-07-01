@@ -53,7 +53,7 @@ public class KafkaTest {
 		StringDeserializer deserializer = new StringDeserializer();
 		
 		ProducerRecord<String, String> record = new ProducerRecord<>("topic", "key", "foobar");
-		producer.send(record);
+		producer.send(record).get();
 		
 		Properties p = new Properties();
 		p.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -61,10 +61,12 @@ public class KafkaTest {
 		Consumer<String, String> consumer = cluster.consumer(p, deserializer, deserializer);
 		
 		consumer.subscribe(Arrays.asList("topic"));
+		consumer.poll(0);
 		
-		ConsumerRecords<String,String> records = consumer.poll(200L);
+		ConsumerRecords<String,String> records = consumer.poll(1000L);
 		assertEquals(1, records.count());
 		
+		consumer.unsubscribe();
 		cluster.shutdown();
 	}
 	
