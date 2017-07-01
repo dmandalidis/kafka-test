@@ -9,7 +9,10 @@ This is a Java unit test framework for testing scenarios requiring use of [Apach
 
 # Kafka version support
 
-kafka-cluster-unit comes with support for Apache Kafka 0.10.1.1 and Apache ZooKeeper 3.4.6. May work with other version pairs.
+| Version | Kafka version |
+| --- | --- |
+| 1.0.x | 0.10.x |
+| 2.0.x | 0.11.x |
 
 # Usage
 
