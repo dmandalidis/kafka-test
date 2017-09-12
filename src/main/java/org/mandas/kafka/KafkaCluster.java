@@ -366,6 +366,25 @@ public class KafkaCluster {
 		}
 		
 		/**
+		 * Modifies this builder, attaching a new Kafka broker
+		 * @param id the broker id
+		 * @param host the hostname that this broker will listen on
+		 * @param port the port this broker will bind on
+		 * @param properties additional properties
+		 * @return this
+		 * @throws IllegalStateException if the Zookeeper server has not been initialized
+		 */
+		public KafkaClusterBuilder withBroker(int id, String host, int port, Map<String, Object> properties) {
+			if (zk == null) {
+				throw new IllegalStateException("A Kafka broker needs a Zookeeper connection");
+			}
+			Path logDir = base.resolve("kafka").resolve(String.valueOf(id)).resolve("log");
+			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, port, properties);
+			brokers.put(id, broker);
+			return this;
+		}
+		
+		/**
 		 * Build a {@link KafkaCluster} instance
 		 * @return a new {@link KafkaCluster} instance
 		 * @throws IllegalStateException if a Zookeeper server has not been configured
