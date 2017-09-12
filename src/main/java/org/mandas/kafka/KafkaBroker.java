@@ -42,6 +42,12 @@ class KafkaBroker {
 		props.put("broker.id", brokerId);
 		props.put("offsets.topic.num.partitions", "1");
 		props.put("auto.create.topics.enable", false);
+		props.put("group.initial.rebalance.delay.ms", 0);
+	}
+	
+	KafkaBroker(Path logDir, int brokerId, String zkConnect, String host, int port, Map<String, Object> properties) {
+		this(logDir, brokerId, zkConnect, host, port);
+		props.putAll(properties);
 	}
 
 	String getListener() {
