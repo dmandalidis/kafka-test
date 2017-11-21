@@ -206,6 +206,18 @@ public class KafkaCluster {
 	}
 	
 	/**
+	 * Stop a broker
+	 * @param broker the broker id
+	 */
+	public void stop(int broker) {
+		KafkaBroker brk = brokers.get(broker);
+		if (brk == null) {
+			throw new IllegalArgumentException(String.format("Broker with id %d does not exist", brk));
+		}
+		brk.stop();
+	}
+	
+	/**
 	 * Shutdown this cluster
 	 */
 	public void shutdown() {
