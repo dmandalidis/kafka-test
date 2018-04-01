@@ -12,7 +12,7 @@ This is a Java unit test framework for testing scenarios requiring use of [Apach
 | Version | Kafka version |
 | --- | --- |
 | 1.0.x | 0.10.x |
-| 2.0.x | 0.11.x |
+| 2.x | >= 0.11.x |
 
 # Usage
 

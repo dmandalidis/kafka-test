@@ -54,7 +54,7 @@
 		<version.deploy.plugin>2.8.2</version.deploy.plugin>
 		<version.gpg.plugin>1.6</version.gpg.plugin>
 
-		<version.kafka>0.11.0.0</version.kafka>
+		<version.kafka>1.1.0</version.kafka>
 		<version.junit>4.12</version.junit>
 		<version.slf4j>1.6.1</version.slf4j>
 	</properties>
@@ -68,7 +68,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
+			<artifactId>kafka_2.12</artifactId>
 			<version>${version.kafka}</version>
 			<exclusions>
 				<exclusion>
