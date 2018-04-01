@@ -30,25 +30,22 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mandas.kafka.KafkaCluster;
+import org.mandas.kafka.KafkaClusterRule;
 
 public class KafkaTest { 
 
+	@Rule
+	public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000);
+	
 	@Test
 	public void testCluster() throws Exception {
-		KafkaCluster cluster = KafkaCluster.builder()
-				.withZookeeper("127.0.0.1", 2181, 5)
-				.withBroker(1, "127.0.0.1", 9092)
-				.withBroker(2, "127.0.0.1", 19092)
-				.build();
-		
-		cluster.start();
-		
-		cluster.createTopic("topic", 3);
+		rule.cluster().createTopic("topic", 3);
 		
 		StringSerializer serializer = new StringSerializer();
-		Producer<String, String> producer = cluster.producer(new Properties(), serializer, serializer);
+		Producer<String, String> producer = rule.cluster().producer(new Properties(), serializer, serializer);
 
 		StringDeserializer deserializer = new StringDeserializer();
 		
@@ -58,7 +55,7 @@ public class KafkaTest {
 		Properties p = new Properties();
 		p.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 		p.put(ConsumerConfig.GROUP_ID_CONFIG, "mygroup");
-		Consumer<String, String> consumer = cluster.consumer(p, deserializer, deserializer);
+		Consumer<String, String> consumer = rule.cluster().consumer(p, deserializer, deserializer);
 		
 		consumer.subscribe(Arrays.asList("topic"));
 		consumer.poll(0);
@@ -67,7 +64,6 @@ public class KafkaTest {
 		assertEquals(1, records.count());
 		
 		consumer.unsubscribe();
-		cluster.shutdown();
 	}
 	
 	@Test(expected=IllegalStateException.class)

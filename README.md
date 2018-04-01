@@ -27,7 +27,13 @@ This is a Java unit test framework for testing scenarios requiring use of [Apach
 </dependency>
 ```
 
-## Create a cluster
+## Have Junit Rule handle cluster lifecycle
+```java
+@Rule
+public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000); // This will manage 2 kafka brokers at port 10000-11000
+```
+
+## Create a cluster manually
 ```java
 KafkaCluster cluster = KafkaCluster.builder()
 				.withZookeeper("127.0.0.1", 2181)
@@ -36,11 +42,11 @@ KafkaCluster cluster = KafkaCluster.builder()
 				.build();
 ```
 
-## Start the cluster
+## Start the cluster manually
 ```java
 cluster.start();
 ```
-## Stop the cluster
+## Stop the cluster manually
 ```java
 cluster.shutdown();
 ```
