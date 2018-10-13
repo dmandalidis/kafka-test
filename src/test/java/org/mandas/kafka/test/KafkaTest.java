@@ -18,9 +18,11 @@
 */
 package org.mandas.kafka.test;
 
+import static java.time.Duration.ofSeconds;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -38,32 +40,32 @@ import org.mandas.kafka.KafkaClusterRule;
 public class KafkaTest { 
 
 	@Rule
-	public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000);
+	public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000, Collections.singletonMap("zookeeper.connection.timeout.ms", "60000"));
 	
 	@Test
 	public void testCluster() throws Exception {
 		rule.cluster().createTopic("topic", 3);
 		
 		StringSerializer serializer = new StringSerializer();
-		Producer<String, String> producer = rule.cluster().producer(new Properties(), serializer, serializer);
-
 		StringDeserializer deserializer = new StringDeserializer();
 		
-		ProducerRecord<String, String> record = new ProducerRecord<>("topic", "key", "foobar");
-		producer.send(record).get();
+		try (Producer<String, String> producer = rule.cluster().producer(new Properties(), serializer, serializer)) {
+			ProducerRecord<String, String> record = new ProducerRecord<>("topic", "key", "foobar");
+			producer.send(record).get();
+		}
 		
 		Properties p = new Properties();
 		p.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 		p.put(ConsumerConfig.GROUP_ID_CONFIG, "mygroup");
-		Consumer<String, String> consumer = rule.cluster().consumer(p, deserializer, deserializer);
-		
-		consumer.subscribe(Arrays.asList("topic"));
-		consumer.poll(0);
-		
-		ConsumerRecords<String,String> records = consumer.poll(1000L);
-		assertEquals(1, records.count());
-		
-		consumer.unsubscribe();
+		try (Consumer<String, String> consumer = rule.cluster().consumer(p, deserializer, deserializer)) {
+			consumer.subscribe(Arrays.asList("topic"));
+			consumer.poll(ofSeconds(0L));
+			
+			ConsumerRecords<String,String> records = consumer.poll(ofSeconds(1L));
+			assertEquals(1, records.count());
+			
+			consumer.unsubscribe();
+		}
 	}
 	
 	@Test(expected=IllegalStateException.class)

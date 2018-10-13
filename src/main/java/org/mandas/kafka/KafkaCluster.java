@@ -18,6 +18,8 @@
 */
 package org.mandas.kafka;
 
+import static java.time.Duration.ofMillis;
+import static java.util.Collections.emptyMap;
 import static java.util.concurrent.ThreadLocalRandom.current;
 
 import java.io.IOException;
@@ -266,7 +268,7 @@ public class KafkaCluster {
 		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group");
 		try (Consumer<String, String> consumer = consumer(properties, deserializer, deserializer)) {
 			consumer.subscribe(Arrays.asList("__consumer_offsets"));
-			consumer.poll(0);
+			consumer.poll(ofMillis(0L));
 		}
 	}
 	
@@ -364,30 +366,25 @@ public class KafkaCluster {
 		 * @throws IllegalStateException if the Zookeeper server has not been initialized
 		 */
 		public KafkaClusterBuilder withBroker(int id, String host, int portStart, int portEnd) {
-			if (zk == null) {
-				throw new IllegalStateException("A Kafka broker needs a Zookeeper connection");
-			}
-			Path logDir = base.resolve("kafka").resolve(String.valueOf(id)).resolve("log");
-			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, current().nextInt(portStart, portEnd));
-			brokers.put(id, broker);
-			return this;
+			return withBroker(id, host, portStart, portEnd, emptyMap());
 		}
 		
 		/**
 		 * Modifies this builder, attaching a new Kafka broker
 		 * @param id the broker id
 		 * @param host the hostname that this broker will listen on
-		 * @param port the port this broker will bind on
-		 * @param properties additional properties
+		 * @param portStart the starting port of a candidate port range 
+		 * @param portEnd the ending port of a candidate port range
+		 * @param properties additional kafka broker properties
 		 * @return this
 		 * @throws IllegalStateException if the Zookeeper server has not been initialized
 		 */
-		public KafkaClusterBuilder withBroker(int id, String host, int port, Map<String, Object> properties) {
+		public KafkaClusterBuilder withBroker(int id, String host, int portStart, int portEnd, Map<String, Object> properties) {
 			if (zk == null) {
 				throw new IllegalStateException("A Kafka broker needs a Zookeeper connection");
 			}
 			Path logDir = base.resolve("kafka").resolve(String.valueOf(id)).resolve("log");
-			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, port, properties);
+			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, current().nextInt(portStart, portEnd), properties);
 			brokers.put(id, broker);
 			return this;
 		}
