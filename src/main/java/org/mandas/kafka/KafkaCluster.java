@@ -18,6 +18,8 @@
 */
 package org.mandas.kafka;
 
+import static java.util.concurrent.ThreadLocalRandom.current;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -337,24 +339,18 @@ public class KafkaCluster {
 		/**
 		 * Modifies this builder, attaching Zookeeper server coordinates
 		 * @param host the hostname that Zookeeper will listen on
-		 * @param port the port that Zookeeper will bind on
+		 * @param portStart the starting port of a candidate port range 
+		 * @param portEnd the ending port of a candidate port range
 		 * @return this
 		 */
-		public KafkaClusterBuilder withZookeeper(String host, int port) {
-			return withZookeeper(host, port, 10);
+		public KafkaClusterBuilder withZookeeper(String host, int portStart, int portEnd) {
+			return withZookeeper(host, current().nextInt(portStart, portEnd));
 		}
 		
-		/**
-		 * Modifies this builder, attaching Zookeeper server coordinates
-		 * @param host the hostname that Zookeeper will listen on
-		 * @param port the port that Zookeeper will bind on
-		 * @param maxClientCnxns the maximum number of allowed client connections
-		 * @return this
-		 */
-		public KafkaClusterBuilder withZookeeper(String host, int port, int maxClientCnxns) {
+		private KafkaClusterBuilder withZookeeper(String host, int port) {
 			Path dataDir = base.resolve("zk").resolve("data");
 			Path snapDir = base.resolve("zk").resolve("log");
-			zk = new Zk(dataDir, snapDir, host, port, maxClientCnxns);
+			zk = new Zk(dataDir, snapDir, host, port, 10);
 			return this;
 		}
 		
@@ -362,16 +358,17 @@ public class KafkaCluster {
 		 * Modifies this builder, attaching a new Kafka broker
 		 * @param id the broker id
 		 * @param host the hostname that this broker will listen on
-		 * @param port the port this broker will bind on
+		 * @param portStart the starting port of a candidate port range 
+		 * @param portEnd the ending port of a candidate port range
 		 * @return this
 		 * @throws IllegalStateException if the Zookeeper server has not been initialized
 		 */
-		public KafkaClusterBuilder withBroker(int id, String host, int port) {
+		public KafkaClusterBuilder withBroker(int id, String host, int portStart, int portEnd) {
 			if (zk == null) {
 				throw new IllegalStateException("A Kafka broker needs a Zookeeper connection");
 			}
 			Path logDir = base.resolve("kafka").resolve(String.valueOf(id)).resolve("log");
-			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, port);
+			KafkaBroker broker = new KafkaBroker(logDir, id, zk.getConnectionString(), host, current().nextInt(portStart, portEnd));
 			brokers.put(id, broker);
 			return this;
 		}

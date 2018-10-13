@@ -36,9 +36,9 @@ public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000); // This wi
 ## Create a cluster manually
 ```java
 KafkaCluster cluster = KafkaCluster.builder()
-				.withZookeeper("127.0.0.1", 2181)
-				.withBroker(1, "127.0.0.1", 9092)
-				.withBroker(2, "127.0.0.1", 19092)
+				.withZookeeper("127.0.0.1", 10000, 11000)
+				.withBroker(1, "127.0.0.1", 10000, 11000)
+				.withBroker(2, "127.0.0.1", 10000, 11000)
 				.build();
 ```
 

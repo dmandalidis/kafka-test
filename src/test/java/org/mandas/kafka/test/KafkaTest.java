@@ -69,14 +69,14 @@ public class KafkaTest {
 	@Test(expected=IllegalStateException.class)
 	public void testNoZk() {
 		KafkaCluster.builder()
-				.withBroker(1, "127.0.0.1", 9092)
+				.withBroker(1, "127.0.0.1", 10000, 11111)
 				.build();
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void testNoBrokers() {
 		KafkaCluster.builder()
-				.withZookeeper("127.0.0.1", 2181, 5)
+				.withZookeeper("127.0.0.1", 10000, 11111)
 				.build();
 	}
 }
