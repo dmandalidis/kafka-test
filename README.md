@@ -14,7 +14,8 @@ This is a Java unit test framework for testing scenarios requiring use of [Apach
 | 1.0.x | 0.10.x |
 | 2.0.0 | 0.11.x |
 | 2.0.4 | 1.1.0 |
-| 2.0.5 | 2.0.0 |
+| 2.0.5 | 2.0.x |
+| 2.1.0 | 2.1.x |
 
 # Usage
 
