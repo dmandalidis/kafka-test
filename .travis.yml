@@ -2,7 +2,7 @@ notifications:
   email: false
 language: java
 jdk:
-- openjdk8
+- openjdk11
 env:
   global:
   - secure: cdRkfBTnxL+gNVA+xdqGtPWoVZ4oGrH2dmYFISB/tdxLLyhooI/yNhOWdYZVrdcFd+hpAb63KALwNUCXD2wSReTj6i7o3YaO+kjZ3Phtl8S05QWfaZzcU6Gb1AVoqeDrLbIlk9tqE52ku8O1gRs8mfZ/rQuJobfiVKNfri7ttQBalX3l9B3JAakRA2chmx+VrG9KkLjf5kjE8zCdkw0irUaLWZMGpJ66BeQmSsfwEzg/Zu1Iih92Y5fTOiQgriE9S4QdzGU99u+rPZnVHHr8U3k9nuNsj0JOoZQAPb4gok4vDHNxj+UxZ8sKnU13Igz+79hhT6sdsp9D+v7YxUS+Dcsb0Jqp3WuoB6fTond3OIaCRBUiypdFBomVBgigPvt8Xo3dBBsgLXmVhWSuLFDkP0iMzOnLN96RK4d9GR3AlAhAzRLKiamd2lGOCZFgwp1VqM/LqoooBG2HlGZEovFqQO0mljtHDlfmhSSBiNbZ970eOQF1BEmTEweQkCsjcVFiwvkX/mYnIzNZ7fUwhnubz4UxiLnPYm/l4yTqfBf6VvXuAw1at9mosGzY5I+f3JOmbp8SC3gdBqNasWGTCtWKqgV0BID5LiKmOOcxm3D4NbNavHO7BejgBMNddHphix2723xafz1Wqxp1zLnBBzAl6q1QvYMttOP8+ilA9673dos=
@@ -11,7 +11,7 @@ env:
   - secure: hi0aOCeaIu4OhtEpWW/2n8gVJg4VQdCkvIjhk03Kq3r/ZgnXivnuk4honpGnz98sWZ/LbR2yCGw0tCQs90cbfiUFbP+LxMzgQMqC8baIvaMjuywuMH2MbMBRlyZuwTT8UoJzc8iT0ra7JrYT25Q9aGRkykCSghR4ihp0bs4g61v2P17/YYwVVmW/vsts9TCUWRy3QB2KXsAQIYFPvbLcNLtlag+LM7WlL193+uOZfV/Cy3b5II7A3WuECE3zikqNH3qwIK0eS0UsvNr8fROyL93qgCjuH6m0k94j45oztGlkvYN4kcNUDnYW7zKbAa5yzDkuEBTUq9jwi7frZV2WSmo5GKUijx/m3pKe9LFw6tUcU4j98N54Sk3J5bntfOSiQuB6UZ2aUn5X1/b4hZL5YS4yi+fWuGErxB/ggYCF25WMlY/LMQx60viHY6zoTzaKJFtTXosEMTX1iT9eELYhd/zMcS+vvOHKqre/u7eAFJ3tGflPuh1+jKj07CXh2wdfo4G+FXKx4gC5MrJixezmb/8ZIfnCWvtDmF3BphGOr6vOLu27PEEOFesGKufbxYDJeVC5lGlZxayFSCv07WPiXGuvq8KrOzFTaMj+IkQEf7IVW92bf5gZLjJIXz+9zYxazB0V++CEibyUjesv0TOYgQ4Z1BK5m41tfZIW4Yw0XBk=
 script: 
   - 'if [ $TRAVIS_PULL_REQUEST == "false" ]; then mvn --settings sonatype-settings.xml -Pdeploy-artifacts clean deploy; fi'
-  - 'if [ $TRAVIS_PULL_REQUEST != "false" ]; then mvn clean test; fi'
+  - 'if [ $TRAVIS_PULL_REQUEST != "false" ]; then mvn clean package; fi'
 branches:
   only:
   - master
