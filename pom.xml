@@ -56,7 +56,7 @@
 
 		<version.kafka>2.3.0</version.kafka>
 		<version.junit>4.12</version.junit>
-		<version.slf4j>1.6.1</version.slf4j>
+		<version.slf4j>1.7.28</version.slf4j>
 	</properties>
 
 	<dependencies>
