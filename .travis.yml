@@ -21,3 +21,5 @@ before_install:
 - gpg --import secret.asc
 - echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
 - gpg-connect-agent reloadagent /bye
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
