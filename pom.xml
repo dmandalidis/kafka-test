@@ -47,7 +47,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 
 		<version.source.plugin>3.0.0</version.source.plugin>
-		<version.javadoc.plugin>3.1.0</version.javadoc.plugin>
+		<version.javadoc.plugin>3.1.1</version.javadoc.plugin>
 		<version.compiler.plugin>3.8.1</version.compiler.plugin>
 		<version.resources.plugin>3.0.0</version.resources.plugin>
 		<version.staging.plugin>1.6.8</version.staging.plugin>
