@@ -16,10 +16,15 @@ branches:
   only:
   - master
 before_install:
-- openssl aes-256-cbc -K $encrypted_cb23debe0958_key -iv $encrypted_cb23debe0958_iv
-  -in secret.asc.enc -out secret.asc -d
-- gpg --import secret.asc
-- echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
-- gpg-connect-agent reloadagent /bye
+- if [ $TRAVIS_PULL_REQUEST == "false" ]; then openssl aes-256-cbc -K $encrypted_cb23debe0958_key -iv $encrypted_cb23debe0958_iv
+  -in secret.asc.enc -out secret.asc -d; fi
+- if [ $TRAVIS_PULL_REQUEST == "false" ]; then gpg --import secret.asc; fi
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+\.\d+$/
+cache:
+  directories:
+    - $HOME/.m2
