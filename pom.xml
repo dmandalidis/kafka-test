@@ -53,7 +53,7 @@
 		<version.staging.plugin>1.6.8</version.staging.plugin>
 		<version.deploy.plugin>2.8.2</version.deploy.plugin>
 		<version.gpg.plugin>1.6</version.gpg.plugin>
-		<version.jacoco.plugin>0.8.4</version.jacoco.plugin>
+		<version.jacoco.plugin>0.8.5</version.jacoco.plugin>
 
 		<version.kafka>2.3.0</version.kafka>
 		<version.junit>4.12</version.junit>
