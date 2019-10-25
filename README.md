@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/github/dmandalidis/kafka-cluster-unit/coverage.svg?branch=master)](https://codecov.io/github/dmandalidis/kafka-cluster-unit?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/org.mandas.kafka/kafka-cluster-unit.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.mandas.kafka%22%20kafka-cluster-unit)
 [![License](https://img.shields.io/github/license/dmandalidis/kafka-cluster-unit.svg)](LICENSE)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dmandalidis/kafka-cluster-unit)](https://dependabot.com)
 
 This is a Java unit test framework for testing scenarios requiring use of [Apache Kafka](http://kafka.apache.org)
 
