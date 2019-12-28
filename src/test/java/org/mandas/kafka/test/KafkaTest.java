@@ -27,6 +27,7 @@ import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -40,7 +41,7 @@ import org.mandas.kafka.KafkaClusterRule;
 public class KafkaTest { 
 
 	@Rule
-	public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000, Collections.singletonMap("zookeeper.connection.timeout.ms", "60000"));
+	public KafkaClusterRule rule = new KafkaClusterRule(2, 10000, 11000);
 	
 	@Test
 	public void testCluster() throws Exception {
@@ -63,6 +64,9 @@ public class KafkaTest {
 			
 			ConsumerRecords<String,String> records = consumer.poll(ofSeconds(1L));
 			assertEquals(1, records.count());
+			ConsumerRecord<String, String> record = records.iterator().next();
+			assertEquals("key", record.key());
+			assertEquals("foobar", record.value());
 			
 			consumer.unsubscribe();
 		}
