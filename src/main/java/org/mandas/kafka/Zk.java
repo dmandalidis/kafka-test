@@ -18,22 +18,28 @@
 */
 package org.mandas.kafka;
 
-import java.net.InetSocketAddress;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Properties;
 
-import org.apache.zookeeper.server.ServerCnxnFactory;
-import org.apache.zookeeper.server.ZKDatabase;
-import org.apache.zookeeper.server.ZooKeeperServer;
-import org.apache.zookeeper.server.persistence.FileTxnSnapLog;
+import org.apache.zookeeper.server.ServerConfig;
+import org.apache.zookeeper.server.ZooKeeperServerMain;
+import org.apache.zookeeper.server.admin.AdminServer.AdminServerException;
+import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class Zk {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Zk.class);
 	
 	private final Path dataDir;
 	private final Path snapDir; 
 	private final String host;
 	private final int port;
 	private final int maxClientCnxns;
-	private final ZooKeeperServer server;
+
+	private Thread server;
 	
 	Zk(Path dataDir, Path snapDir, String host, int port, int maxClientCnxns) {
 		this.dataDir = dataDir;
@@ -41,7 +47,6 @@ class Zk {
 		this.host = host;
 		this.port = port;
 		this.maxClientCnxns = maxClientCnxns;
-		this.server = new ZooKeeperServer();
 	}
 	
 	String getConnectionString() {
@@ -50,17 +55,38 @@ class Zk {
 	
 	
 	void start() throws Exception {
-		InetSocketAddress addr = new InetSocketAddress(host, port);
-		ServerCnxnFactory factory = ServerCnxnFactory.createFactory(addr, maxClientCnxns);
-		server.setServerCnxnFactory(factory);
-		FileTxnSnapLog snapLog = new FileTxnSnapLog(dataDir.toFile(), snapDir.toFile());
-		server.setTxnLogFactory(snapLog);
-		ZKDatabase zkDb = new ZKDatabase(snapLog);
-		server.setZKDatabase(zkDb);
-		factory.startup(server);
+		Properties startupProperties = new Properties();
+		startupProperties.put("clientPort", port);
+		startupProperties.put("dataDir", dataDir.toFile());
+		startupProperties.put("snapDir", snapDir.toFile());
+		startupProperties.put("maxClientCnxns", maxClientCnxns);
+		QuorumPeerConfig quorumConfiguration = new QuorumPeerConfig();
+		try {
+		    quorumConfiguration.parseProperties(startupProperties);
+		} catch(Exception e) {
+		    throw new RuntimeException(e);
+		}
+
+		ZooKeeperServerMain zooKeeperServer = new ZooKeeperServerMain();
+		final ServerConfig configuration = new ServerConfig();
+		configuration.readFrom(quorumConfiguration);
+
+		server = new Thread() {
+		    @Override
+			public void run() {
+		        try {
+		            zooKeeperServer.runFromConfig(configuration);
+		        } catch (IOException | AdminServerException e) {
+		        	LOGGER.error("Error starting zookeeper ", e);
+		        	throw new RuntimeException(e);
+		        }
+		    }
+		};
+		
+		server.start();
 	}
 	
 	void stop() {
-		server.getServerCnxnFactory().shutdown();
+		server.interrupt();
 	}
 }
