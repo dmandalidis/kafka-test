@@ -1,26 +1,16 @@
 # Change Log
 
-## [Unreleased](https://github.com/dmandalidis/kafka-cluster-unit/tree/HEAD)
+## 2.4.0 
 
-[Full Changelog](https://github.com/dmandalidis/kafka-cluster-unit/compare/2.2.0...HEAD)
-
-**Closed issues:**
-
-- Switch to OpenJDK 11 [\#9](https://github.com/dmandalidis/kafka-cluster-unit/issues/9)
-- Support broker addition in a live cluster [\#3](https://github.com/dmandalidis/kafka-cluster-unit/issues/3)
-
-**Merged pull requests:**
-
-- Bump maven-source-plugin from 3.0.0 to 3.1.0 [\#13](https://github.com/dmandalidis/kafka-cluster-unit/pull/13) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
-- Bump maven-javadoc-plugin from 3.1.0 to 3.1.1 [\#12](https://github.com/dmandalidis/kafka-cluster-unit/pull/12) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
-- Bump slf4j-simple from 1.6.1 to 1.7.28 [\#11](https://github.com/dmandalidis/kafka-cluster-unit/pull/11) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
-- Switch to OpenJDK11 \(fixes \#9\) [\#10](https://github.com/dmandalidis/kafka-cluster-unit/pull/10) ([dmandalidis](https://github.com/dmandalidis))
-
-## [2.2.0](https://github.com/dmandalidis/kafka-cluster-unit/tree/2.2.0) (2019-07-14)
-[Full Changelog](https://github.com/dmandalidis/kafka-cluster-unit/compare/2.3.0...2.2.0)
+* Upgrade Kafka to 2.4.0
+* Proper cross-compile support
+* Switch to OpenJDK11 (fixes #9)
 
 ## [2.3.0](https://github.com/dmandalidis/kafka-cluster-unit/tree/2.3.0) (2019-07-14)
 [Full Changelog](https://github.com/dmandalidis/kafka-cluster-unit/compare/2.1.0...2.3.0)
+
+## [2.2.0](https://github.com/dmandalidis/kafka-cluster-unit/tree/2.2.0) (2019-07-14)
+[Full Changelog](https://github.com/dmandalidis/kafka-cluster-unit/compare/2.3.0...2.2.0)
 
 ## [2.1.0](https://github.com/dmandalidis/kafka-cluster-unit/tree/2.1.0) (2019-02-24)
 [Full Changelog](https://github.com/dmandalidis/kafka-cluster-unit/compare/2.0.5...2.1.0)
