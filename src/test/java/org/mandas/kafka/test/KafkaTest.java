@@ -22,7 +22,6 @@ import static java.time.Duration.ofSeconds;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.Consumer;
