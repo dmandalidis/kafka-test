@@ -55,7 +55,7 @@
 		<version.jacoco.plugin>0.8.5</version.jacoco.plugin>
 
 		<version.kafka>2.4.0</version.kafka>
-		<version.junit>4.12</version.junit>
+		<version.junit>4.13</version.junit>
 		<version.slf4j>1.7.30</version.slf4j>
 	</properties>
 
