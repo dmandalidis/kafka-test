@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.6.0
+
+* Bump kafka_2.13 from 2.5.0 to 2.6.0
+
+## 2.5.0
+
+* Bump kafka_2.13 from 2.4.1 to 2.5.0
+* Update compatibility matrix
+* unused imports
+* Bump to 2.5.0-SNAPSHOT
+
 ## 2.4.0 
 
 * Upgrade Kafka to 2.4.0
