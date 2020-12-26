@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.7.0
+
+* Bump kafka_2.13 from 2.6.0 to 2.7.0
+
 ## 2.6.0
 
 * Bump kafka_2.13 from 2.5.0 to 2.6.0
