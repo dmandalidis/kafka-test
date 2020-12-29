@@ -25,6 +25,9 @@ This is a Java unit test framework for testing scenarios requiring use of [Apach
 | 2.2.0 | 2.2.x |
 | 2.3.0 | 2.3.x |
 | 2.4.0 | 2.4.x |
+| 2.5.0 | 2.5.x |
+| 2.6.0 | 2.6.x |
+| 2.7.0 | 2.7.x |
 
 # Usage
 
