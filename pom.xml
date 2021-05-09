@@ -51,7 +51,7 @@
 		<version.resources.plugin>3.0.0</version.resources.plugin>
 		<version.staging.plugin>1.6.8</version.staging.plugin>
 		<version.deploy.plugin>2.8.2</version.deploy.plugin>
-		<version.gpg.plugin>1.6</version.gpg.plugin>
+		<version.gpg.plugin>3.0.1</version.gpg.plugin>
 		<version.jacoco.plugin>0.8.7</version.jacoco.plugin>
 
 		<version.kafka>2.7.0</version.kafka>
