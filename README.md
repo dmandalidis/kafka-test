@@ -1,6 +1,6 @@
 # Kafka Cluster unit testing framework
 
-[![Build Status](https://travis-ci.org/dmandalidis/kafka-cluster-unit.svg?branch=master)](https://travis-ci.org/dmandalidis/kafka-cluster-unit)
+[![Build Status](https://travis-ci.com/dmandalidis/kafka-cluster-unit.svg?branch=master)](https://travis-ci.com/dmandalidis/kafka-cluster-unit)
 [![codecov](https://codecov.io/github/dmandalidis/kafka-cluster-unit/coverage.svg?branch=master)](https://codecov.io/github/dmandalidis/kafka-cluster-unit?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/org.mandas.kafka/kafka-cluster-unit.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.mandas.kafka%22%20kafka-cluster-unit)
 [![License](https://img.shields.io/github/license/dmandalidis/kafka-cluster-unit.svg)](LICENSE)
