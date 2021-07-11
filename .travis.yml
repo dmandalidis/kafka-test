@@ -7,24 +7,22 @@ env:
   global:
   - secure: cdRkfBTnxL+gNVA+xdqGtPWoVZ4oGrH2dmYFISB/tdxLLyhooI/yNhOWdYZVrdcFd+hpAb63KALwNUCXD2wSReTj6i7o3YaO+kjZ3Phtl8S05QWfaZzcU6Gb1AVoqeDrLbIlk9tqE52ku8O1gRs8mfZ/rQuJobfiVKNfri7ttQBalX3l9B3JAakRA2chmx+VrG9KkLjf5kjE8zCdkw0irUaLWZMGpJ66BeQmSsfwEzg/Zu1Iih92Y5fTOiQgriE9S4QdzGU99u+rPZnVHHr8U3k9nuNsj0JOoZQAPb4gok4vDHNxj+UxZ8sKnU13Igz+79hhT6sdsp9D+v7YxUS+Dcsb0Jqp3WuoB6fTond3OIaCRBUiypdFBomVBgigPvt8Xo3dBBsgLXmVhWSuLFDkP0iMzOnLN96RK4d9GR3AlAhAzRLKiamd2lGOCZFgwp1VqM/LqoooBG2HlGZEovFqQO0mljtHDlfmhSSBiNbZ970eOQF1BEmTEweQkCsjcVFiwvkX/mYnIzNZ7fUwhnubz4UxiLnPYm/l4yTqfBf6VvXuAw1at9mosGzY5I+f3JOmbp8SC3gdBqNasWGTCtWKqgV0BID5LiKmOOcxm3D4NbNavHO7BejgBMNddHphix2723xafz1Wqxp1zLnBBzAl6q1QvYMttOP8+ilA9673dos=
   - secure: RQjGB6XUzIRRNe8PT7L4/jNSx2mSfOdeeHRJuZ0dp9/VWRyQ57e+fgEzkoonKaO4U15dAfmWxRqK5eNkCWtxvSNZgbKJGJSi8vdoPl+U9R2bbDOC8eoKTEBA9MHu4guNfabCCWKT+5dRHWprJKNoG8DrDChnDWgMcjaZz6C1NIzz8q9xr27AotD7uPpUZH9wAk73esT92eHDnC0vfmj81lB3TwurKYLtzvT8QxQ2G6HwymLfVtH+TkvPc5X5F4Cw4P1Mf/CSejTMdShDIOnpUpQ0fN3EAfTRT0wydLewXeCKajEQC0/QizYTic4vyPm3nzl03LIn2zp7XvDWdWTjeKWRVL5dCtRY8p2r4Gc7MyqncufCqME1KVISlS/kc1L+fVyodwx04wEqGI2IhMCyI4yWhR2PXXqwYkGcln5YiWLrm/BcGCDgqxtMYTG1rUpA1H0cRLKfVigmVe/L6T1WemZDL1dofsQr9AUYV9vXZfCTQH8vF0nbwiIfgvRAA/iW91vh/Hi7Z/E1wkcQMeZ+2toModT0FwswJ0Yw1ZbRv6T7Zk672GFMt7YFEDsc+kOCTuBSO00gDW2bcaTgscAqjyg3ATqXRbqXbNsRdkuL39zqpv5Rj38ARwQK1obxCrjp9B5mX5NXOd32U6ycxeQad5uQPAoukHLG2H10GTN7TLI=
-  - secure: dRRr50l1a51VCURvbN8fOPa11O0r61L0mKdFq3IP69SHZunLSdhNhRATkHP4ZHN/dUL1QlnYcyrkthU50BCq7qv6rNn3caCHx5qqboGRdC6HSixctZbDSKyRn0J3UmVBc/z2Jw8h7kszFNIr5DBt0C6RvUiTj7Wi0tUovnTie0fPiJYsHDyhPwK1aSbYWSDO/2YtnKyenH4YZXOLeG9IKH5xJpKqqgrpjUI5sLD2EdZlegeKmip2kBDhgmoArIO8x/yk+Ur0Lxnj5o/x7axn4NXLIFkV2izXPH8NWy5wysdjn1z1hP2+6OZJgxa+SUfg5aiz8lSUtpqoT1qlXxrFYG6FglaDDto5eO5al5TvfcoJWEQTLZ8H6BWicp9hQz8x9xgZS4VgjQLSZ8y9nxw8tzO+oboi4PCPoC+v/mtUQy+P4Vp2ysDm5TAqRo0jw1YgN02tW3PUANHB3oFS1FAodRkYFH/DjaoSN2UcjJIdozKMI/x00wV4rG/x8aKtXDNUQn7CE77TShzgcfxrGSclfdSt+DoIGxx2sLZozKJ9XmFfNvOITmVWMNZIGzboPmSXBmD/Sxl0SnBRwAzpP95CntjZKyapzqxj/2T+v8diAEtt21OFBiltxm1nGz4a/FBP67PuQU2OYyrWqCGIDmowcq1EyKrV0lK5Tw+VZR0Kvlo=
-  - secure: hi0aOCeaIu4OhtEpWW/2n8gVJg4VQdCkvIjhk03Kq3r/ZgnXivnuk4honpGnz98sWZ/LbR2yCGw0tCQs90cbfiUFbP+LxMzgQMqC8baIvaMjuywuMH2MbMBRlyZuwTT8UoJzc8iT0ra7JrYT25Q9aGRkykCSghR4ihp0bs4g61v2P17/YYwVVmW/vsts9TCUWRy3QB2KXsAQIYFPvbLcNLtlag+LM7WlL193+uOZfV/Cy3b5II7A3WuECE3zikqNH3qwIK0eS0UsvNr8fROyL93qgCjuH6m0k94j45oztGlkvYN4kcNUDnYW7zKbAa5yzDkuEBTUq9jwi7frZV2WSmo5GKUijx/m3pKe9LFw6tUcU4j98N54Sk3J5bntfOSiQuB6UZ2aUn5X1/b4hZL5YS4yi+fWuGErxB/ggYCF25WMlY/LMQx60viHY6zoTzaKJFtTXosEMTX1iT9eELYhd/zMcS+vvOHKqre/u7eAFJ3tGflPuh1+jKj07CXh2wdfo4G+FXKx4gC5MrJixezmb/8ZIfnCWvtDmF3BphGOr6vOLu27PEEOFesGKufbxYDJeVC5lGlZxayFSCv07WPiXGuvq8KrOzFTaMj+IkQEf7IVW92bf5gZLjJIXz+9zYxazB0V++CEibyUjesv0TOYgQ4Z1BK5m41tfZIW4Yw0XBk=
-script: 
-  - 'if [ $TRAVIS_PULL_REQUEST == "false" ]; then mvn --settings sonatype-settings.xml -Pdeploy-artifacts clean deploy; fi'
-  - 'if [ $TRAVIS_PULL_REQUEST != "false" ]; then mvn clean package; fi'
+  - secure: b69qs9/drHAcZPvxNWzKvU7Qi32qSb2U2I/f6QqyQEXTPw169x05SZef9X5b2wsZe6YlVRfPKiG/gk7m3sW9oeqA9EbM9I6w/36MocLT1lb2fFHFsxLmKggA5wEXmR5Tn4LVtuSJhRPiCxkCSINoEhuC0yMOz2z045AM518j76eLaTO8DEHjJiUNLxxr5xyhKrTJ6lplE0vrml07znc5FPFZlbYLEzORFjSo+Y27dYWvqhQl9ozHQp7+Qp5wRHL/jbPeC2enTLph+cKvF0KPrAsvIizXqQt5U35WN6FRX2kmmtxtmrgFjpCx7VP28oLJoRrJ7EVABGRObd6/FgRLSX/JgQnP2GcWSIF94d3trz2s/LiEZIW9+n+uqUu7YCRzIWmjd2n/RduRdrkv9CvxKb4HotZTwSfaMrI5q8Iv96yynR2/HBiK2tt5fuDUL8KzJ9B1Txk7kj46c/vVDfShBK5kHlK7S90lhlTZqv5haEntkm2d0muhjSCfx4NJulhEKlx+1MXDF8v3ZBxCDHXZTez8kypnwhX0rCaODknMai/2bgc3jzjYAFzF/cE6QFaUsdSSl9pzDfJPoKjlotycPlkly+Zs9hTzxS8sFiX0h4hhHWQlR7TK+sGFL6CYrr/vaLQGOl9w8cDdbITZDFSYxrp2gpMCjpraiDzi/whexmk=
+  - secure: U9TOPLwtxPET8pZ55IxC6scpQLKW2DxK8DlmppwH7+OYTQp0Ii+b7A53m0DgxOerg8yt3avrI7pdEg0pH59AZsfLpCQdvQPQCdF84bP/m9PPNBBdECyB+QpIKTXXi+W7FLkGL27PJJpxvNlynjzeCQDHHWB8wTpxEyuFoWmUFO/Slfq8/sv6UX4GFSjimutC8IkkPUCnJVgTNCl3Bw9qJPf2cYIGZzLmjWjKeImSpbCwXzmMREzlwW5DYnwDXCTE9lsu+Ew7me8ZrtjHy3S+uMVJiUHw8OYUvSfW1BHlSVfHo4UY/bbwuIjP0SMlzgo3ctSZh/nRq6n+4G5wCeAbhVkZpDV2iR1W7QcjuMbodkkDZ1EY0sAqKtLkGwtRBGhoVvVESWdil4wDzRh1iIUA68UMytHrEx01eTToqyOaZYAppwcX28s9WWbq5wv9ej42t2V+XQPf7EXEXl8faUSIS3fi5xeTYRtuM6BLDGExQc+r5E7haO6I88W3FaazKh2DMhmQtCDoIEu6xvLNxXZzPV2kf+BM3waMtYqXaDitE9Q1jCqNTUM6spD++z8Kq6VtqIffl5CDxXlMNSY0OB1B/ywe693bzbg83k6soVz81FlN8+T+2U6lAShOYkz31p6AAc/aNPncIGGivQKxWJEbZfcOJ9Z2nmxhMAE1L1NFYuw=
+script:
+- if [ $TRAVIS_PULL_REQUEST == "false" ]; then mvn --settings sonatype-settings.xml
+  -Pdeploy-artifacts clean deploy; fi
+- if [ $TRAVIS_PULL_REQUEST != "false" ]; then mvn clean package; fi
 branches:
   only:
   - master
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
 before_install:
-- if [ $TRAVIS_PULL_REQUEST == "false" ]; then openssl aes-256-cbc -K $encrypted_cb23debe0958_key -iv $encrypted_cb23debe0958_iv
-  -in secret.asc.enc -out secret.asc -d; fi
+- if [ $TRAVIS_PULL_REQUEST == "false" ]; then openssl aes-256-cbc -K $encrypted_d8011ea95b1b_key
+  -iv $encrypted_d8011ea95b1b_iv -in secret.asc.enc -out secret.asc -d; fi
 - if [ $TRAVIS_PULL_REQUEST == "false" ]; then gpg --import secret.asc; fi
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-branches:
-  only:
-  - master
-  - /^v\d+\.\d+\.\d+$/
+- bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
-    - $HOME/.m2
+  - "$HOME/.m2"
